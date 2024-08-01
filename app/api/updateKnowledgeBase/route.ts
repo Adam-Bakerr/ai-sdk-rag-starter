@@ -1,9 +1,15 @@
-// /pages/api/updateKnowledgeBase.ts
-import { NextApiRequest, NextApiResponse } from 'next';
+// /app/api/updateKnowledgeBase/route.ts
+import { NextRequest, NextResponse } from 'next/server';
 import { createResource } from '@/lib/actions/resources';
 import { openai } from '@ai-sdk/openai';
 import { convertToCoreMessages, streamText, tool } from 'ai';
 import { z } from 'zod';
+
+// Define the Message type
+type Message = {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+};
 
 // Set the body size limit to 10 MB
 export const config = {
@@ -14,20 +20,9 @@ export const config = {
   },
 };
 
-// Define the Message type
-type Message = {
-  role: 'user' | 'assistant' | 'system';
-  content: string;
-};
-
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Method Not Allowed' });
-    return;
-  }
-
+export async function POST(req: NextRequest) {
   try {
-    const { messages }: { messages: Message[] } = req.body;
+    const { messages }: { messages: Message[] } = await req.json();
 
     // Convert messages to core messages
     const coreMessages = convertToCoreMessages(messages);
@@ -36,7 +31,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const result = await streamText({
       model: openai('gpt-4o'),
       messages: coreMessages,
-      system: `You are a helpful assistant. Do not respond to the user; your only job is to update the knowledge base.`,
+      system: `You are a helpful assistant. Do not respond to the user; your only job is to update the knowledge base. do not generate a response, just log the infomation provided to the knowledge base`,
       tools: {
         addResource: tool({
           description: `Add a resource to your knowledge base.`,
@@ -48,11 +43,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    // Convert result to a plain object if necessary
-    res.status(200).json(JSON.parse(JSON.stringify(result)));
+    return NextResponse.json(result);
   } catch (error : any) {
-    res.status(500).json({ error: error.message });
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
-};
+}
 
-export default handler;
+// Default handler for unsupported methods
+export async function handler(req: NextRequest) {
+  return NextResponse.json({ error: 'Method Not Allowed' }, { status: 405 });
+}
