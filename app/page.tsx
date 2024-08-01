@@ -1,3 +1,46 @@
+'use client';
+
+import { useChat } from 'ai/react';
+import AddContentForm from 'components/ui/add-content';
+import DropzoneComponent from 'components/ui/drag-drop';
+import addStringToKnowledgeBase from "components/ui/add-content"
+
 export default function Chat() {
-  return <main>Hello, world!</main>;
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    maxToolRoundtrips: 2,
+  });
+
+  return (
+    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
+
+      <div className="space-y-4">
+        {messages.map(m => (
+          <div key={m.id} className="whitespace-pre-wrap">
+            <div>
+              <div className="font-bold">{m.role}</div>
+              <p>
+                {m.content.length > 0 ? (
+                  m.content
+                ) : (
+                  <span className="italic font-light">
+                    {'calling tool: ' + m?.toolInvocations?.[0].toolName}
+                  </span>
+                )}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
+          value={input}
+          placeholder="Say something..."
+          onChange={handleInputChange}
+        /><DropzoneComponent />
+      </form>
+        
+    </div>
+  );
 }
