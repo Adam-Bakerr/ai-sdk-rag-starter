@@ -1,9 +1,7 @@
 'use client';
 
 import { useChat } from 'ai/react';
-import AddContentForm from 'components/ui/add-content';
 import DropzoneComponent from 'components/ui/drag-drop';
-import addStringToKnowledgeBase from "components/ui/add-content"
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
@@ -38,7 +36,8 @@ export default function Chat() {
           value={input}
           placeholder="Say something..."
           onChange={handleInputChange}
-        /><DropzoneComponent />
+        />
+        <DropzoneComponent />
       </form>
         
     </div>
