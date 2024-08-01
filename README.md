@@ -1,12 +1,3 @@
-fill in api and postgres database in .env following .env.example
-run pnpm install
-run pnpm run dev
-goto http://localhost:3000/
-
-provide files for context, these are stored in the postgres database
-
-ask questions about provided files
-
 To Run The Project, Please do the following:
 
 Fill/Create the .env file in the root directory, and fill with the contents shown in the example .env.example file
