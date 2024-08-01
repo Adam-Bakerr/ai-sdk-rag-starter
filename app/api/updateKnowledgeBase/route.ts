@@ -47,8 +47,3 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
-
-// Default handler for unsupported methods
-export async function handler(req: NextRequest) {
-  return NextResponse.json({ error: 'The Method you attempted to call is incorrect and not allowed, please you POST' }, { status: 405 });
-}
