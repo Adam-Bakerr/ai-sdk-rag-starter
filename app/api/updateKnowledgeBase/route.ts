@@ -12,13 +12,12 @@ type Message = {
 };
 
 // Allow Larger Files
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
+export const api = {
+  body: {
+    sizeLimit: '1mb', // Set your desired size limit (1mb, 2mb, etc.)
   },
 };
+
 
 export async function POST(req: NextRequest) {
   try {
