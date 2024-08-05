@@ -7,14 +7,6 @@ import { findRelevantContent } from '@/lib/ai/embedding';
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
-export const config = {
-    api: {
-        bodyParser: {
-            sizeLimit: '2mb' // Set desired value here
-        }
-    }
-}
-
 export async function POST(req: Request) {
   const { messages } = await req.json();
 

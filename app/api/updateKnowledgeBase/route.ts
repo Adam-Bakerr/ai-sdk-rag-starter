@@ -12,13 +12,12 @@ type Message = {
 };
 
 // Allow Larger Files
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
+export const api = {
+  body: {
+    sizeLimit: '1mb', // Set your desired size limit (1mb, 2mb, etc.)
   },
 };
+
 
 export async function POST(req: NextRequest) {
   try {
@@ -47,9 +46,4 @@ export async function POST(req: NextRequest) {
   } catch (error : any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-}
-
-// Default handler for unsupported methods
-export async function handler(req: NextRequest) {
-  return NextResponse.json({ error: 'The Method you attempted to call is incorrect and not allowed, please you POST' }, { status: 405 });
 }

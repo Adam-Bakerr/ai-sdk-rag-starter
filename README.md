@@ -1,14 +1,15 @@
-# Vercel AI SDK RAG Guide Starter Project
+To Run The Project, Please do the following:
 
-This is the starter project for the Vercel AI SDK [Retrieval-Augmented Generation (RAG) guide](https://sdk.vercel.ai/docs/guides/rag-chatbot).
+Fill/Create the .env file in the root directory, and fill with the contents shown in the example .env.example file
 
-In this project, you will build a chatbot that will only respond with information that it has within its knowledge base. The chatbot will be able to both store and retrieve information. This project has many interesting use cases from customer support through to building your own second brain!
+run "pnpm db:push" <---- New Command
 
-This project will use the following stack:
+run "pnpm install" to install all dependincies
 
-- [Next.js](https://nextjs.org) 14 (App Router)
-- [Vercel AI SDK](https://sdk.vercel.ai/docs)
-- [OpenAI](https://openai.com)
-- [Drizzle ORM](https://orm.drizzle.team)
-- [Postgres](https://www.postgresql.org/) with [ pgvector ](https://github.com/pgvector/pgvector)
-- [shadcn-ui](https://ui.shadcn.com) and [TailwindCSS](https://tailwindcss.com) for styling
+run "pnpm run dev" to run the dev server
+
+goto "http://localhost:3000/" to load the website
+
+upload files upto a maximum of 10MB or 30,000 tokens (gpt-4o TPM max)
+
+ask questions about files
