@@ -10,7 +10,7 @@ export default function Chat() {
 
   return (
     <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-
+      <DropzoneComponent />
       <div className="space-y-4">
         {messages.map(m => (
           <div key={m.id} className="whitespace-pre-wrap">
@@ -37,7 +37,7 @@ export default function Chat() {
           placeholder="Say something..."
           onChange={handleInputChange}
         />
-        <DropzoneComponent />
+
       </form>
         
     </div>
