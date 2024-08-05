@@ -2,6 +2,8 @@ To Run The Project, Please do the following:
 
 Fill/Create the .env file in the root directory, and fill with the contents shown in the example .env.example file
 
+run "pnpm db:push" to initalize the database <-- New command
+
 run "pnpm install" to install all dependincies
 
 run "pnpm run dev" to run the dev server
